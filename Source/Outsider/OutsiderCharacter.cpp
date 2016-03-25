@@ -19,8 +19,8 @@ AOutsiderCharacter::AOutsiderCharacter()
 		ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> RunningAnimationAsset;
 		ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> IdleAnimationAsset;
 		FConstructorStatics()
-			: RunningAnimationAsset(TEXT("/Game/2dSideScroller/Sprites/RunningAnimation.RunningAnimation"))
-			, IdleAnimationAsset(TEXT("/Game/2dSideScroller/Sprites/IdleAnimation.IdleAnimation"))
+			: RunningAnimationAsset(TEXT("/Game/Outsider/Assets/Sprites/Heebo/RunFrames/A_Run.A_Run"))
+			, IdleAnimationAsset(TEXT("/Game/Outsider/Assets/Sprites/Heebo/StandFrames/A_Stand.A_Stand"))
 		{
 		}
 	};
