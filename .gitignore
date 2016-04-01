@@ -1,5 +1,13 @@
-/Build/WindowsNoEditor
+/.vs
+/Build
 /Binaries
+/Content/Developers
 /DerivedDataCache
 /Intermediate
+/ipch
 /Saved
+*.db
+*.opendb
+*.sln
+*.sdf
+*.suo
