@@ -32,7 +32,7 @@ AOutsiderCharacter::AOutsiderCharacter()
 	IdleAnimation = ConstructorStatics.IdleAnimationAsset.Get();
 	DyingAnimation = ConstructorStatics.DyingAnimationAsset.Get();
 	GetSprite()->SetFlipbook(IdleAnimation);
-	//GetSprite()->SetFlipbook(DyingAnimation);
+	GetSprite()->SetFlipbook(DyingAnimation);
 	
 	// Use only Yaw from the controller and ignore the rest of the rotation.
 	bUseControllerRotationPitch = false;
