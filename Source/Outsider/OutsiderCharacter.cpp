@@ -51,8 +51,8 @@ AOutsiderCharacter::AOutsiderCharacter()
 
 	// Create an orthographic camera (no perspective) and attach it to the boom
 	SideViewCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("SideViewCamera"));
-	SideViewCameraComponent->ProjectionMode = ECameraProjectionMode::Orthographic;
-	SideViewCameraComponent->OrthoWidth = 2048.0f;
+	SideViewCameraComponent->ProjectionMode = ECameraProjectionMode::Perspective;
+	SideViewCameraComponent->OrthoWidth = 2028.0f;
 	SideViewCameraComponent->AttachTo(CameraBoom, USpringArmComponent::SocketName);
 
 	// Prevent all automatic rotation behavior on the camera, character, and camera component
