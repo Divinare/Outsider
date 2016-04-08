@@ -1,4 +1,4 @@
-/.vs
+'/.vs
 /Build
 /Binaries
 /Content/Developers
@@ -12,3 +12,5 @@
 *.sln
 *.sdf
 *.suo
+.xcuserstate
+UserInterfaceState.xcuserstate
