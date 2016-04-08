@@ -18,9 +18,11 @@ AOutsiderCharacter::AOutsiderCharacter()
 	{
 		ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> RunningAnimationAsset;
 		ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> IdleAnimationAsset;
+		ConstructorHelpers::FObjectFinderOptional<UPaperFlipbook> DyingAnimationAsset;
 		FConstructorStatics()
 			: RunningAnimationAsset(TEXT("/Game/Outsider/Assets/Sprites/Heebo/RunFrames/A_Run.A_Run"))
 			, IdleAnimationAsset(TEXT("/Game/Outsider/Assets/Sprites/Heebo/StandFrames/A_Stand.A_Stand"))
+			, DyingAnimationAsset(TEXT("/Game/Outsider/Assets/Sprites/Heebo/DyingFrames/A_Dying.A_Dying"))
 		{
 		}
 	};
@@ -28,8 +30,10 @@ AOutsiderCharacter::AOutsiderCharacter()
 
 	RunningAnimation = ConstructorStatics.RunningAnimationAsset.Get();
 	IdleAnimation = ConstructorStatics.IdleAnimationAsset.Get();
+	DyingAnimation = ConstructorStatics.DyingAnimationAsset.Get();
 	GetSprite()->SetFlipbook(IdleAnimation);
-
+	//GetSprite()->SetFlipbook(DyingAnimation);
+	
 	// Use only Yaw from the controller and ignore the rest of the rotation.
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = true;
