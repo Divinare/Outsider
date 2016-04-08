@@ -2,10 +2,9 @@
 
 #include "Outsider.h"
 #include "OutsiderCharacter.h"
+#include "OutsiderProjectile.h"
 #include "PaperFlipbookComponent.h"
 #include "Components/TextRenderComponent.h"
-
-
 
 DEFINE_LOG_CATEGORY_STATIC(SideScrollerCharacter, Log, All);
 //////////////////////////////////////////////////////////////////////////
@@ -91,6 +90,11 @@ AOutsiderCharacter::AOutsiderCharacter()
 	// Enable replication on the Sprite component so animations show up when networked
 	GetSprite()->SetIsReplicated(true);
 	bReplicates = true;
+
+	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
+	// FP_MuzzleLocation->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
+
+	GunOffset = FVector(0.0f, 0.0f, 0.0f);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -125,11 +129,28 @@ void AOutsiderCharacter::SetupPlayerInputComponent(class UInputComponent* InputC
 	// Note: the 'Jump' action and the 'MoveRight' axis are bound to actual keys/buttons/sticks in DefaultInput.ini (editable from Project Settings..Input)
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	InputComponent->BindAction("Fire", IE_Pressed, this, &AOutsiderCharacter::OnFire);
 	InputComponent->BindAxis("MoveRight", this, &AOutsiderCharacter::MoveRight);
 
 	InputComponent->BindTouch(IE_Pressed, this, &AOutsiderCharacter::TouchStarted);
 	InputComponent->BindTouch(IE_Released, this, &AOutsiderCharacter::TouchStopped);
+
 }
+
+void AOutsiderCharacter::OnFire()
+{
+	const FRotator SpawnRotation = GetControlRotation();
+	// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
+	const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
+
+	UWorld* const World = GetWorld();
+	if (World != NULL)
+	{
+		// spawn the projectile at the muzzle
+		World->SpawnActor<AOutsiderProjectile>(AOutsiderProjectile::StaticClass(), SpawnLocation, SpawnRotation);
+	}
+}
+
 
 void AOutsiderCharacter::MoveRight(float Value)
 {
